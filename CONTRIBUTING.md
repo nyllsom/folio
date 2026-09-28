@@ -8,6 +8,7 @@
 | --- | --- |
 | 命令与帮助 | `src/cli.js`、`src/help.js` |
 | Markdown 分页、图片嵌入、HTML 输出 | `src/compiler.js` |
+| 数学公式与离线字体 | `src/math.js` |
 | 主题读取、继承与校验 | `src/theme.js`、`themes/` |
 | 字体、间距与响应式布局 | `src/paper.css` |
 | 翻页、缩放、图片放大 | `src/player.js` |
@@ -15,7 +16,7 @@
 | Agent 转换流程与写作规则 | `prompts/` |
 | 编译器与 CLI 测试 | `test/` |
 
-编译器只依赖 `markdown-it`。生成的 HTML 不需要运行时依赖或服务器。课程资料放在各自的内容目录，工具仓库只保存代码与通用范例。
+编译器使用 `markdown-it` 解析正文，通过 `markdown-it-texmath` 和 KaTeX 排版公式。生成的 HTML 包含所需字体，不依赖外部资源或服务器。课程资料放在各自的内容目录，工具仓库只保存代码与通用范例。
 
 ## 本地开发
 

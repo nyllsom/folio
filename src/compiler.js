@@ -2,10 +2,13 @@ import MarkdownIt from 'markdown-it';
 import { readFile } from 'node:fs/promises';
 import { resolve, extname } from 'node:path';
 import { loadTheme } from './theme.js';
+import { math, mathAssets } from './math.js';
 
 const escape = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const mime = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp', '.gif': 'image/gif', '.svg': 'image/svg+xml' };
-const md = new MarkdownIt({ html: false, typographer: true });
+const md = new MarkdownIt({ html: false, typographer: true }).use(math);
+md.renderer.rules.table_open = () => '<div class="table-scroll" tabindex="0" role="region" aria-label="表格"><table>\n';
+md.renderer.rules.table_close = () => '</table></div>\n';
 
 // Split parsed top-level headings, so headings inside code/quotes never become slides.
 function sections(tokens) {
@@ -65,7 +68,11 @@ function renderBlocks(tokens) {
 
 export async function compile(source, { baseDir = process.cwd(), theme = 'nju' } = {}) {
   const appearance = await loadTheme(theme);
-  const { title, pages } = sections(md.parse(source.replace(/^\uFEFF/, ''), {}));
+  source = source.replace(/^\uFEFF/, '');
+  const notice = source.match(/^<!-- folio:copyright\s+([\s\S]*?)-->\s*/);
+  const copyright = notice?.[1].trim();
+  if (notice) source = source.slice(notice[0].length);
+  const { title, pages } = sections(md.parse(source, {}));
   await Promise.all(pages.map(p => embedImages(p.tokens, baseDir)));
   const [css, js] = await Promise.all([
     readFile(new URL('./paper.css', import.meta.url), 'utf8'),
@@ -75,11 +82,13 @@ export async function compile(source, { baseDir = process.cwd(), theme = 'nju' }
     <header><h2 id="title-${i + 1}">${md.renderInline(p.title)}</h2>${appearance.logo ? `<img class="brand-logo" src="${appearance.logo}" alt="${escape(appearance.label)}">` : ''}</header>
     <article>${renderBlocks(p.tokens)}</article>
   </section>`).join('\n');
+  const mathCss = body.includes('class="katex"') ? await mathAssets() : '';
   return `<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light"><title>${escape(title)}</title>
-<style>:root{${appearance.css}}\n${css}</style></head>
+<style>:root{${appearance.css}}\n${mathCss}\n${css}</style></head>
 <body><main aria-label="${escape(title)}">${body}</main>
+${copyright ? `<footer class="copyright">${escape(copyright)}</footer>` : ''}
 <dialog aria-label="放大查看图片"><button aria-label="关闭图片">×</button><img alt=""><p></p></dialog>
 <script>${js}</script></body></html>`;
 }

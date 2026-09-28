@@ -37,6 +37,42 @@ test('errors are explicit and arbitrary HTML is not executed', async () => {
   assert.doesNotMatch(html, /<script>alert/);
 });
 
+test('copyright is optional, escaped, and rendered once outside the reading canvas', async () => {
+  const html = await compile('<!-- folio:copyright © Author <script>x</script> -->\n# Book\n\n## One\nText\n\n## Two\nMore');
+  assert.match(html, /<\/main>\s*<footer class="copyright">© Author &lt;script&gt;x&lt;\/script&gt;<\/footer>/);
+  assert.equal((html.match(/<footer/g) ?? []).length, 1);
+  assert.doesNotMatch(await compile('## Page\nText'), /<footer/);
+});
+
+test('TeX renders offline in paragraphs, blocks and tables while code stays literal', async () => {
+  const html = await compile(String.raw`## Math
+
+Inline $x_1$ and \(y^2\).
+
+$$
+\frac{L}{R}
+$$
+
+| Quantity | Value |
+| --- | --- |
+| Delay | $d/v$ |
+
+\`$x$\`
+`.replaceAll('\\`', '`'));
+  assert.equal((html.match(/class="katex"/g) ?? []).length, 4);
+  assert.match(html, /<math xmlns=/);
+  assert.match(html, /class="math-display"/);
+  assert.match(html, /data:font\/woff2;base64,/);
+  assert.doesNotMatch(html, /url\(fonts\//);
+  assert.match(html, /<code>\$x\$<\/code>/);
+  assert.match(html, /class="table-scroll"/);
+  const codeOnly = await compile('## Code\n\n```tex\n$x$\n```');
+  assert.doesNotMatch(codeOnly, /data:font\/woff2|class="katex"/);
+  await assert.rejects(compile('## Math\n\n$\\unknownCommand{x}$'), /Undefined control sequence/);
+  const untrusted = await compile('## Math\n\n$\\href{javascript:alert(1)}{x}$');
+  assert.doesNotMatch(untrusted, /href="javascript:/);
+});
+
 test('CLI writes to a separate directory and refuses to overwrite its input', async () => {
   const dir = await mkdtemp(join(tmpdir(), 'folio-cli-'));
   const cli = fileURLToPath(new URL('../src/cli.js', import.meta.url));

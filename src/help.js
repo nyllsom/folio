@@ -41,6 +41,8 @@ ${conversionGuide}`,
 默认生成稿件旁的同名 HTML；-o 创建父目录并覆盖已有输出。
 本地图片相对稿件定位，主题文件相对当前目录定位。
 正文、图片、主题和播放器嵌入单文件，阅读时无需服务器。
+公式使用 $...$ 或 $$...$$，编译时排版并嵌入字体。
+版权页脚：稿件开头添加 <!-- folio:copyright 声明 -->。
 左右键翻页，上下滚动长页，F 全屏，点击插图放大。`,
   theme: `folio theme init [-o theme.json]
 folio bind pages.md --theme theme.json

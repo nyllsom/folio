@@ -3,17 +3,39 @@
   "version": "0.1.0",
   "description": "FOLIO — from slides to readable pages.",
   "type": "module",
-  "bin": { "folio": "./src/cli.js" },
-  "exports": { ".": "./src/compiler.js" },
-  "files": ["src", "themes", "examples", "prompts", "AGENTS.md", "README.md", "CONTRIBUTING.md", "LICENSE"],
+  "bin": {
+    "folio": "./src/cli.js"
+  },
+  "exports": {
+    ".": "./src/compiler.js"
+  },
+  "files": [
+    "src",
+    "themes",
+    "examples",
+    "prompts",
+    "AGENTS.md",
+    "README.md",
+    "CONTRIBUTING.md",
+    "LICENSE"
+  ],
   "scripts": {
     "examples:build": "node src/cli.js bind examples/quickstart/pages.md -o examples/quickstart/pages.html",
     "test": "node --test"
   },
-  "engines": { "node": ">=20" },
-  "repository": { "type": "git", "url": "git+https://github.com/nyllsom/folio.git" },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nyllsom/folio.git"
+  },
   "homepage": "https://github.com/nyllsom/folio#readme",
   "author": "nyllsom",
   "license": "MIT",
-  "dependencies": { "markdown-it": "14.1.0" }
+  "dependencies": {
+    "katex": "0.18.9",
+    "markdown-it": "14.3.2",
+    "markdown-it-texmath": "1.0.0"
+  }
 }

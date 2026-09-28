@@ -2,10 +2,14 @@
   const pages = [...document.querySelectorAll('.page')];
   const dialog = document.querySelector('dialog');
   const title = document.title;
+  const footer = document.querySelector('.copyright');
   function fit() {
-    document.documentElement.style.setProperty('--stage-scale', Math.min((innerWidth - 32) / 1600, (innerHeight - 32) / 900));
+    const footerSpace = footer ? footer.offsetHeight + 16 : 0;
+    document.documentElement.style.setProperty('--footer-space', `${footerSpace}px`);
+    document.documentElement.style.setProperty('--stage-scale', Math.min((innerWidth - 32) / 1600, (innerHeight - footerSpace - 32) / 900));
   }
   fit();
+  if (footer) new ResizeObserver(fit).observe(footer);
   addEventListener('resize', fit);
   let current = 0;
   const fromHash = () => /^#page-\d+$/.test(location.hash) ? Number(location.hash.slice(6)) - 1 : 0;
@@ -49,6 +53,8 @@
   dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
   let touch;
   document.addEventListener('touchstart', e => {
+    touch = null;
+    if (e.target.closest('.table-scroll, .math-display')) return;
     if (!dialog.open && e.touches.length === 1) touch = [e.touches[0].clientX, e.touches[0].clientY];
   }, { passive: true });
   document.addEventListener('touchend', e => {
