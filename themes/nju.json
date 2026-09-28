@@ -19,12 +19,12 @@
   "font_family": "\"Folio Sans\", \"Noto Sans CJK SC\", \"Microsoft YaHei\", Arial, ui-sans-serif, system-ui, sans-serif",
   "title_rule_width": "160px",
   "title_rule_height": "2px",
-  "logo_width": "64px",
+  "logo_width": "96px",
   "cover_rule_width": "160px",
   "brand_logo": "nyllsom-purple.png",
   "layout": "academic",
   "brand_label": "nyllsom",
-  "logo_height": "64px",
+  "logo_height": "96px",
   "code_canvas": "#fcfafc",
   "table_divider": "#eee8ed"
 }
