@@ -1,0 +1,8 @@
+{
+  "extends": "nju",
+  "name": "My NJU",
+  "primary": "#6f145f",
+  "accent": "#3159a6",
+  "body_size": "22px",
+  "body_leading": "1.7"
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="340" viewBox="0 0 600 340">
+<rect width="600" height="340" fill="white"/>
+<g fill="#f8f3f7" stroke="#d8c1d4"><rect x="160" y="20" width="280" height="70" rx="2"/><rect x="160" y="135" width="280" height="70" rx="2"/><rect x="160" y="250" width="280" height="70" rx="2"/></g>
+<g stroke="#6f145f" stroke-width="2" fill="none"><path d="M300 90v40m-7-9 7 9 7-9"/><path d="M300 205v40m-7-9 7 9 7-9"/></g>
+<g font-family="Microsoft YaHei,Arial,sans-serif" font-size="24" text-anchor="middle" fill="#6f145f"><text x="300" y="64">整理材料</text><text x="300" y="179">编排正文与插图</text><text x="300" y="294">生成阅读页</text></g>
+</svg>
