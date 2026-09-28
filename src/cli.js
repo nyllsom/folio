@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { readFile, writeFile, mkdir, cp, readdir } from 'node:fs/promises';
 import { compile } from './compiler.js';
 import { starterTheme } from './theme.js';
-import { help } from './help.js';
+import { help, formatHelp } from './help.js';
 
 try {
   const { values, positionals } = parseArgs({
@@ -19,7 +19,7 @@ try {
   if (values.help || !command || command === 'help') {
     const topic = command === 'help' ? args[0] : command;
     if (topic && !help[topic]) throw new Error(`未知帮助主题：${topic}`);
-    console.log(help[topic ?? 'overview']);
+    console.log(formatHelp(help[topic ?? 'overview']));
   } else if (command === 'theme' && args.length === 1 && args[0] === 'init') {
     const path = resolve(values.output ?? 'theme.json');
     await mkdir(dirname(path), { recursive: true });

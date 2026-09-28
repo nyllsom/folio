@@ -28,10 +28,12 @@
 folio bind pages.md [-o output.html] [--theme nju|theme.json]
 folio theme init [-o theme.json]
 folio example [--copy new-directory]
-folio help [bind|theme|example]
+folio help [bind|theme|example|agent]
 ```
 
 稿件、输出及主题文件路径相对当前工作目录。默认输出为稿件旁的同名 `.html`。编译可以覆盖输出，但不能用输出路径覆盖源稿；主题生成与范例复制拒绝覆盖已有目标。命令出错时返回非零退出码。
+
+帮助在交互终端中为标题、命令与选项着色，重定向时输出纯文本。设置 `NO_COLOR` 或 `FORCE_COLOR=0` 关闭颜色；`FORCE_COLOR=1` 可强制开启，`NO_COLOR` 优先。颜色使用终端自身的调色板，适应浅色与深色主题。
 
 ## 主题
 

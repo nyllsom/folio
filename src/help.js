@@ -2,6 +2,21 @@ import { fileURLToPath } from 'node:url';
 
 const conversionGuide = fileURLToPath(new URL('../prompts/README.md', import.meta.url));
 
+// Use the terminal's palette so light and dark terminal themes stay readable.
+export function formatHelp(text, { stream = process.stdout, env = process.env } = {}) {
+  const enabled = env.NO_COLOR !== undefined ? false
+    : env.FORCE_COLOR !== undefined ? env.FORCE_COLOR !== '0'
+    : Boolean(stream.isTTY) && env.TERM !== 'dumb';
+  if (!enabled) return text;
+  const paint = (code, value) => `\x1b[${code}m${value}\x1b[0m`;
+  return text.split('\n').map(line => {
+    if (line === conversionGuide) return line;
+    if (/^(FOLIO|folio) — /.test(line)) return paint('1;35', line);
+    return line.replace(/\bfolio\b(?: (?:bind|example|theme|help)(?: (?:init|agent|bind|theme|example))?)?|--[a-z-]+|(?<![\w-])-[oh]\b/g,
+      token => paint(token.startsWith('-') ? '33' : '36', token));
+  }).join('\n');
+}
+
 export const help = {
   overview: `FOLIO — from slides to readable pages.
 
