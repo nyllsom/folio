@@ -5,7 +5,7 @@
   "type": "module",
   "bin": { "folio": "./src/cli.js" },
   "exports": { ".": "./src/compiler.js" },
-  "files": ["src", "themes", "examples", "README.md", "CONTRIBUTING.md", "LICENSE"],
+  "files": ["src", "themes", "examples", "prompts", "AGENTS.md", "README.md", "CONTRIBUTING.md", "LICENSE"],
   "scripts": {
     "examples:build": "node src/cli.js bind examples/quickstart/pages.md -o examples/quickstart/pages.html",
     "test": "node --test"

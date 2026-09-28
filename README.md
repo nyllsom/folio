@@ -21,6 +21,8 @@ folio bind my-pages/pages.md
 
 打开生成的 `pages.html`。左右键翻页，滚轮阅读长页，点击插图放大。
 
+**Agent 也欢迎。** 把材料变成阅读页，从 [转换指南](prompts/README.md) 开始。还不知道用户想转换什么，就先问问。安装后运行 `folio help agent` 也能找到指南。
+
 - **学习使用**：[从范例开始](examples/README.md) · [写法与主题速查](examples/reference.md)
 - **命令行帮助**：`folio help bind` · `folio help theme`
 - **参与开发**：[开发说明](CONTRIBUTING.md)

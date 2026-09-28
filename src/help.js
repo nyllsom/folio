@@ -1,3 +1,7 @@
+import { fileURLToPath } from 'node:url';
+
+const conversionGuide = fileURLToPath(new URL('../prompts/README.md', import.meta.url));
+
 export const help = {
   overview: `FOLIO — from slides to readable pages.
 
@@ -7,7 +11,15 @@ folio example --copy my-pages 复制范例后开始写作
 folio theme init             生成可编辑主题
 
 folio help bind              编译帮助
-folio help theme             主题帮助`,
+folio help theme             主题帮助
+
+Agent：运行 folio help agent 阅读转换指南；输入或目标不明确时，先询问用户。`,
+  agent: `folio — 材料转阅读页
+
+先从对话、附件和工作目录确认输入与目标，仅询问缺失的必要信息。
+读取转换指南，按章节整理正文与插图，再运行 folio bind 并检查生成页面。
+转换指南（当前安装位置）：
+${conversionGuide}`,
   bind: `folio bind <稿件.md> [-o 输出.html] [--theme nju|主题.json]
 
 # 文档标题，## 新的一页，### 页内主题。
