@@ -81,7 +81,7 @@ folio help [bind|theme|example|agent]
 | `block_gap` / `section_gap` | `18px` / `30px` |
 | `title_rule_width` / `title_rule_height` | `160px` / `2px` |
 | `brand_logo` / `brand_label` | 本地标志文件 / 替代文字，`null` 隐藏标志 |
-| `logo_width` / `logo_height` | `132px` / `44px` |
+| `logo_width` / `logo_height` | `64px` / `64px`；默认显示 nyllsom 的紫色头像 |
 | `code_canvas` / `code_foreground` | 代码块背景 / 文字颜色 |
 | `table_divider` | 表格内部分隔线颜色 |
 

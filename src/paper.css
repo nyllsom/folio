@@ -15,6 +15,7 @@ main { width:calc(100% - 32px); max-width:1600px; margin:32px auto; background:v
 .page { min-height:calc(100vh - 64px); padding:var(--folio-page-top) min(var(--folio-page-x),6vw) var(--folio-page-bottom); outline:none; }
 [hidden] { display:none !important; }
 header { position:relative; margin-bottom:var(--folio-section-gap); }
+header:has(.brand-logo) { min-height:var(--folio-logo-height); }
 h2 { max-width:calc(100% - var(--folio-logo-width) - 48px); margin:0; font-size:var(--folio-title-size); line-height:1.16; font-weight:650; letter-spacing:0; color:var(--folio-foreground); }
 h2::after { content:""; display:block; width:var(--folio-title-rule-width); height:var(--folio-title-rule-height); margin-top:16px; background:var(--folio-primary); }
 .brand-logo { position:absolute; right:0; top:0; width:var(--folio-logo-width); height:var(--folio-logo-height); object-fit:contain; object-position:right center; }
@@ -53,8 +54,8 @@ dialog button { position:absolute; top:2px; right:8px; border:0; background:none
   main { width:calc(100% - 16px); margin:8px auto 16px; }
   .page { padding:28px 22px; }
   h2 { font-size:26px; max-width:100%; padding-right:0; }
-  header { margin-bottom:28px; padding-top:44px; }
-  .brand-logo { width:96px; height:32px; }
+  header { margin-bottom:28px; padding-top:60px; }
+  .brand-logo { width:48px; height:48px; }
   article { font-size:16px; line-height:1.75; }
   h3,h4 { font-size:20px; margin-top:28px; }
   figure { float:none; width:100%; margin:0 0 24px; }
