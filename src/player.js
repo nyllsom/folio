@@ -2,23 +2,17 @@
   const pages = [...document.querySelectorAll('.page')];
   const dialog = document.querySelector('dialog');
   const title = document.title;
-  const footer = document.querySelector('.copyright');
-  function fit() {
-    const footerSpace = footer ? footer.offsetHeight + 16 : 0;
-    document.documentElement.style.setProperty('--footer-space', `${footerSpace}px`);
-    document.documentElement.style.setProperty('--stage-scale', Math.min((innerWidth - 32) / 1600, (innerHeight - footerSpace - 32) / 900));
-  }
-  fit();
-  if (footer) new ResizeObserver(fit).observe(footer);
-  addEventListener('resize', fit);
-  let current = 0;
+  const scrollPositions = new Map();
+  let current = -1;
   const fromHash = () => /^#page-\d+$/.test(location.hash) ? Number(location.hash.slice(6)) - 1 : 0;
   function show(index, updateHash = true) {
+    if (current >= 0) scrollPositions.set(current, window.scrollY);
     current = Math.max(0, Math.min(pages.length - 1, Number.isFinite(index) ? index : 0));
     pages.forEach((p, i) => { p.hidden = i !== current; });
     document.title = `${pages[current].querySelector('h2').textContent} · ${title}`;
     if (updateHash) history.replaceState(null, '', `#page-${current + 1}`);
     pages[current].focus({ preventScroll: true });
+    window.scrollTo({ top: scrollPositions.get(current) ?? 0, behavior: 'instant' });
   }
   show(fromHash());
   addEventListener('hashchange', () => show(fromHash(), false));

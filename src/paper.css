@@ -3,15 +3,16 @@
 @font-face { font-family:"Folio Sans"; font-style:normal; font-weight:600 900; src:local("NotoSansCJKsc-Bold"),local("Noto Sans CJK SC Bold"); }
 :root { color-scheme:light; font-family:var(--folio-font-family); color:var(--folio-foreground); background:var(--folio-stage); }
 * { box-sizing:border-box; }
-html,body { width:100%; height:100%; margin:0; overflow:hidden; }
-main { position:fixed; left:50%; top:calc((100% - var(--footer-space,0px)) / 2); width:1600px; height:900px; transform:translate(-50%,-50%) scale(var(--stage-scale,1)); transform-origin:center; background:var(--folio-background); box-shadow:0 12px 40px rgb(15 23 42 / 10%); }
-.copyright { position:fixed; bottom:8px; left:16px; right:16px; color:#777; font-size:11px; line-height:1.5; text-align:center; overflow-wrap:anywhere; }
+html { min-height:100%; scrollbar-gutter:stable; }
+body { margin:0; }
+main { width:calc(100% - 32px); max-width:1600px; margin:32px auto; background:var(--folio-background); box-shadow:0 12px 40px rgb(15 23 42 / 10%); }
+.copyright { margin:0 16px 16px; color:#777; font-size:11px; line-height:1.5; text-align:center; overflow-wrap:anywhere; }
 .math-display { clear:both; overflow-x:auto; margin:0 0 var(--folio-block-gap); padding:4px 0; }
 .math-display .katex-display { margin:.5em 0; }
 .katex { font-size:1.08em; }
 .table-scroll { clear:both; max-width:100%; overflow-x:auto; margin-bottom:var(--folio-block-gap); }
 .table-scroll table { margin-bottom:0; }
-.page { height:100%; overflow-y:auto; padding:var(--folio-page-top) var(--folio-page-x) var(--folio-page-bottom); scrollbar-width:thin; scrollbar-color:var(--folio-border) transparent; outline:none; }
+.page { min-height:calc(100vh - 64px); padding:var(--folio-page-top) min(var(--folio-page-x),6vw) var(--folio-page-bottom); outline:none; }
 [hidden] { display:none !important; }
 header { position:relative; margin-bottom:var(--folio-section-gap); }
 h2 { max-width:calc(100% - var(--folio-logo-width) - 48px); margin:0; font-size:var(--folio-title-size); line-height:1.16; font-weight:650; letter-spacing:0; color:var(--folio-foreground); }
@@ -49,7 +50,7 @@ dialog button { position:absolute; top:2px; right:8px; border:0; background:none
 .page:focus-visible { outline:none; }
 :fullscreen { background:var(--folio-stage); }
 @media (max-width:720px) {
-  main { position:fixed; inset:8px 8px calc(8px + var(--footer-space,0px)); width:auto; height:auto; transform:none; }
+  main { width:calc(100% - 16px); margin:8px auto 16px; }
   .page { padding:28px 22px; }
   h2 { font-size:26px; max-width:100%; padding-right:0; }
   header { margin-bottom:28px; padding-top:44px; }
@@ -65,10 +66,10 @@ dialog button { position:absolute; top:2px; right:8px; border:0; background:none
 }
 @media print {
   html,body { height:auto; overflow:visible; background:white; }
-  main { position:static; width:auto; height:auto; transform:none; box-shadow:none; }
+  main { width:auto; max-width:none; margin:0; box-shadow:none; }
   .copyright { position:static; margin-top:20px; font-size:9pt; }
   .table-scroll,.math-display { overflow:visible; }
-  .page,.page[hidden] { display:block !important; height:auto; overflow:visible; padding:0; break-before:page; }
+  .page,.page[hidden] { display:block !important; min-height:0; height:auto; overflow:visible; padding:0; break-before:page; }
   .page:first-child { break-before:auto; }
   h3 { break-after:avoid; }
   article { font-size:12pt; }
